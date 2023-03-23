@@ -4,20 +4,20 @@ import theme from "../theme";
 import Text from "./Text";
 
 const styles = StyleSheet.create({
-	container: {
-		paddingTop: Constants.statusBarHeight,
-		backgroundColor: theme.colors.bgDark,
-	},
 	flexContainer: {
 		display: "flex",
 		flexDirection: "row",
-		justifyContent: "flex-end",
-		alignItems: "center",
+		justifyContent: "center",
+		alignItems: "flex-end",
+		padding: Constants.statusBarHeight / 2,
 		paddingTop: Constants.statusBarHeight,
-		backgroundColor: theme.colors.bgDark,
+		backgroundColor: theme.colors.grayMid,
 	},
 	flexItem: {
 		flexGrow: 1,
+	},
+	flexItem2: {
+		flexGrow: 0,
 	},
 	text: {
 		color: theme.colors.textLight,
@@ -31,13 +31,15 @@ const click = () => {
 const AppBar = () => {
 	return (
 		<View style={styles.flexContainer}>
-			<Pressable onPress={click}>
-				<Text color="textLight">Repositories</Text>
-			</Pressable>
+			<View style={styles.flexItem}>
+				<Pressable onPress={click}>
+					<Text color="textLight">Repositories</Text>
+				</Pressable>
+			</View>
 			<Pressable style={styles.flexItem}>
 				<Text color="textLight">Asdasd</Text>
 			</Pressable>
-			<Pressable style={styles.flexItem}>
+			<Pressable style={styles.flexItem2}>
 				<Text color="textLight">Dasdasdasd</Text>
 			</Pressable>
 		</View>
