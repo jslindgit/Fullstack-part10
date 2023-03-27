@@ -4,7 +4,6 @@ import theme from "../theme";
 
 const baseTextStyle = {
 	fontSize: theme.fontSizes.subheading,
-	paddingBottom: 10,
 };
 
 const styles = StyleSheet.create({
@@ -29,19 +28,31 @@ const styles = StyleSheet.create({
 	},
 	flexItem: {
 		flexGrow: 1,
+		alignContent: "center",
+		justifyContent: "center",
 	},
 	flexItem2: {
 		flexGrow: 0,
+		alignContent: "center",
+		justifyContent: "center",
 	},
 	ownerAvatar: {
 		width: 50,
 		height: 50,
 	},
-	text: baseTextStyle,
-	languageTab: {
+	tabBlue: {
 		color: "#fff",
 		backgroundColor: theme.colors.primary,
-		alignSelf: "center",
+		alignSelf: "flex-start",
+		padding: 5,
+		borderRadius: 5,
+	},
+	text: {
+		paddingBottom: 10,
+		...baseTextStyle,
+	},
+	textTab: {
+		color: "#fff",
 		...baseTextStyle,
 	},
 });
@@ -50,10 +61,10 @@ const BottomInfo = ({ flexStyle, title, value }) => {
 	return (
 		<View style={styles.flexVertical}>
 			<View style={flexStyle}>
-				<Text style={styles.text} fontWeight="bold">
+				<Text style={{ ...styles.text, alignSelf: "center" }} fontWeight="bold">
 					{value >= 1000 ? Math.round((value / 1000) * 10) / 10 + "k" : value}
 				</Text>
-				<Text style={styles.text}>{title}</Text>
+				<Text style={{ ...styles.text, alignSelf: "center" }}>{title}</Text>
 			</View>
 		</View>
 	);
@@ -72,30 +83,28 @@ const RepositoryItem = ({ repository }) => {
 						{repository.fullName}
 					</Text>
 					<Text style={styles.text}>{repository.description}</Text>
-					<Text style={styles.languageTab}>{repository.language}</Text>
+					<View style={styles.tabBlue}>
+						<Text style={styles.textTab}>{repository.language}</Text>
+					</View>
 				</View>
 			</View>
-			<View style={styles.flexHorizontalStretch}>
+			<View style={{ ...styles.flexHorizontalStretch, paddingTop: 20 }}>
 				<BottomInfo
-					style={styles.flexItem}
 					flexStyle={styles.flexItem}
 					title="Stars"
 					value={repository.stargazersCount}
 				/>
 				<BottomInfo
-					style={styles.flexItem}
 					flexStyle={styles.flexItem}
 					title="Forks"
 					value={repository.forksCount}
 				/>
 				<BottomInfo
-					style={styles.flexItem}
 					flexStyle={styles.flexItem}
 					title="Reviews"
 					value={repository.reviewCount}
 				/>
 				<BottomInfo
-					style={styles.flexItem2}
 					flexStyle={styles.flexItem2}
 					title="Rating"
 					value={repository.ratingAverage}
