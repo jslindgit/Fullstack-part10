@@ -1,7 +1,20 @@
-import { Pressable, View } from "react-native-web";
+import { Pressable, StyleSheet, View } from "react-native";
 import Text from "./Text";
 import FormikTextInput from "./FormikTextInput";
 import { Formik } from "formik";
+
+import { themeStyles } from "../theme";
+import Constants from "expo-constants";
+
+const styles = StyleSheet.create({
+	container: {
+		padding: Constants.statusBarHeight / 2,
+		backgroundColor: "#fff",
+	},
+	inputContainer: {
+		paddingBottom: Constants.statusBarHeight / 2,
+	},
+});
 
 const initialValues = {
 	username: "",
@@ -14,11 +27,15 @@ const submit = (values) => {
 
 const SignInForm = ({ onSubmit }) => {
 	return (
-		<View>
-			<FormikTextInput name="username" placeholder="Username" />
-			<FormikTextInput name="password" placeholder="Password" />
+		<View style={styles.container}>
+			<View style={styles.inputContainer}>
+				<FormikTextInput name="username" placeholder="Username" />
+			</View>
+			<View style={styles.inputContainer}>
+				<FormikTextInput name="password" placeholder="Password" />
+			</View>
 			<Pressable onPress={onSubmit}>
-				<Text>Submit</Text>
+				<Text style={themeStyles.buttonBlue}>Sign in</Text>
 			</Pressable>
 		</View>
 	);
@@ -26,16 +43,17 @@ const SignInForm = ({ onSubmit }) => {
 
 const SignIn = () => {
 	const onSubmit = (values) => {
-		console.log("onSubmit");
-		if (!isNaN(values.username) && !isNaN(values.password)) {
+		if (values.username && values.password) {
 			submit(values);
 		}
 	};
 
 	return (
-		<Formik initialValues={initialValues} onSubmit={onSubmit}>
-			{({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
-		</Formik>
+		<View>
+			<Formik initialValues={initialValues} onSubmit={onSubmit}>
+				{({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+			</Formik>
+		</View>
 	);
 };
 

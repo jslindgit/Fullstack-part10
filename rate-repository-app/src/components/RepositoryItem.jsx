@@ -1,6 +1,7 @@
 import { Image, StyleSheet, View } from "react-native";
 import Text from "./Text";
 import theme from "../theme";
+import { themeStyles } from "../theme";
 
 const baseTextStyle = {
 	fontSize: theme.fontSizes.subheading,
@@ -40,13 +41,6 @@ const styles = StyleSheet.create({
 		width: 50,
 		height: 50,
 	},
-	tabBlue: {
-		color: "#fff",
-		backgroundColor: theme.colors.primary,
-		alignSelf: "flex-start",
-		padding: 5,
-		borderRadius: 5,
-	},
 	text: {
 		paddingBottom: 10,
 		...baseTextStyle,
@@ -83,7 +77,7 @@ const RepositoryItem = ({ repository }) => {
 						{repository.fullName}
 					</Text>
 					<Text style={styles.text}>{repository.description}</Text>
-					<View style={styles.tabBlue}>
+					<View style={themeStyles.tabBlue}>
 						<Text style={styles.textTab}>{repository.language}</Text>
 					</View>
 				</View>
