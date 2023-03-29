@@ -3,6 +3,7 @@ const theme = {
 		grayLight: "#e1e4e8",
 		grayMid: "#828282",
 		primary: "#0366d6",
+		primaryDark: "#0056b7",
 		red: "#e70000",
 		textLight: "#fff",
 		textPrimary: "#24292e",
@@ -22,14 +23,22 @@ const theme = {
 	},
 };
 
+const buttonBase = {
+	color: "#fff",
+	padding: 10,
+	borderRadius: 5,
+	textAlign: "center",
+	fontSize: theme.fontSizes.subheading,
+};
+
 export const themeStyles = {
 	buttonBlue: {
-		color: "#fff",
+		...buttonBase,
 		backgroundColor: theme.colors.primary,
-		padding: 10,
-		borderRadius: 5,
-		textAlign: "center",
-		fontSize: theme.fontSizes.subheading,
+	},
+	buttonBluePressed: {
+		...buttonBase,
+		backgroundColor: theme.colors.primaryDark,
 	},
 	tabBlue: {
 		color: "#fff",

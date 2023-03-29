@@ -34,6 +34,7 @@ const FormikTextInput = ({ name, ...props }) => {
 				value={field.value}
 				error={showError}
 				style={styles.input}
+				secureTextEntry={props.secureTextEntry}
 				{...props}
 			/>
 			{showError && <Text style={styles.errorText}>{meta.error}</Text>}
