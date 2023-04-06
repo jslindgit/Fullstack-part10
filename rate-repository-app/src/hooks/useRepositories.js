@@ -6,6 +6,10 @@ const useRepositories = () => {
 		fetchPolicy: "cache-and-network",
 	});
 
+	if (error) {
+		console.log("error @ useRepositories.js:", error);
+	}
+
 	if (loading) {
 		return [];
 	}
