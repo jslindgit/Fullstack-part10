@@ -7,6 +7,9 @@ import FormikTextInput from "./FormikTextInput";
 
 import { themeStyles } from "../theme";
 import Constants from "expo-constants";
+import useSignIn from "../hooks/useSignin";
+
+import { useEffect } from "react";
 
 const styles = StyleSheet.create({
 	container: {
@@ -27,10 +30,6 @@ const validationSchema = yup.object().shape({
 	username: yup.string().required("Username is required"),
 	password: yup.string().required("Password is required"),
 });
-
-const submit = (values) => {
-	console.log(values);
-};
 
 const SignInForm = ({ onSubmit }) => {
 	return (
@@ -56,9 +55,21 @@ const SignInForm = ({ onSubmit }) => {
 };
 
 const SignIn = () => {
-	const onSubmit = (values) => {
-		if (values.username && values.password) {
-			submit(values);
+	const [signIn, result] = useSignIn();
+
+	useEffect(() => {
+		if (result.data) {
+			console.log("result.data:", result.data);
+		}
+	}, [result.data]);
+
+	const onSubmit = async (values) => {
+		const { username, password } = values;
+
+		try {
+			await signIn(username, password);
+		} catch (e) {
+			console.log("SignIn.e:", e);
 		}
 	};
 

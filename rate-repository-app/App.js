@@ -9,7 +9,7 @@ import createApolloClient from "./src/utils/apolloClient";
 const apolloClient = createApolloClient();
 
 const App = () => {
-	console.log("Constants.manifest:", Constants.manifest);
+	console.log("App.js: Constants.manifest:", Constants.manifest);
 
 	return (
 		<>
