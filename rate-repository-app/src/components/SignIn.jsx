@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { useNavigate } from "react-router-native";
 
 import Button from "./Button";
 import FormikTextInput from "./FormikTextInput";
@@ -55,6 +56,7 @@ const SignInForm = ({ onSubmit }) => {
 
 const SignIn = () => {
 	const [signIn] = useSignIn();
+	const navigate = useNavigate();
 
 	const onSubmit = async (values) => {
 		const { username, password } = values;
@@ -62,8 +64,9 @@ const SignIn = () => {
 		try {
 			const { data } = await signIn({ username, password });
 			console.log("data:", data);
+			navigate("/");
 		} catch (e) {
-			console.log("SignIn.e:", e);
+			console.log("SignIn.jsx SignIn() error:", e);
 		}
 	};
 
