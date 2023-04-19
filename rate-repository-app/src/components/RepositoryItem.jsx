@@ -66,7 +66,7 @@ const BottomInfo = ({ flexStyle, title, value }) => {
 
 const RepositoryItem = ({ repository }) => {
 	return (
-		<View style={styles.container}>
+		<View testID="repositoryItem" style={styles.container}>
 			<View style={styles.flexHorizontal}>
 				<Image
 					style={styles.ownerAvatar}
