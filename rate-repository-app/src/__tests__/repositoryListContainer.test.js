@@ -1,5 +1,6 @@
 import { RepositoryListContainer } from "../components/RepositoryList";
 import { render, screen } from "@testing-library/react-native";
+import { roundCount } from "../components/RepositoryItem";
 
 describe("RepositoryList", () => {
 	describe("RepositoryListContainer", () => {
@@ -49,13 +50,30 @@ describe("RepositoryList", () => {
 
 			render(<RepositoryListContainer repositories={repositories} />);
 
-			//screen.debug();
-
 			const repositoryItems = screen.getAllByTestId("repositoryItem");
+			const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
 
-			console.log("count:", repositoryItems.length);
+			expect(firstRepositoryItem).toHaveTextContent("jaredpalmer/formik");
+			expect(firstRepositoryItem).toHaveTextContent(
+				"Build forms in React, without the tears"
+			);
+			expect(firstRepositoryItem).toHaveTextContent("TypeScript");
+			expect(firstRepositoryItem).toHaveTextContent(roundCount(1619));
+			expect(firstRepositoryItem).toHaveTextContent(roundCount(21856));
+			expect(firstRepositoryItem).toHaveTextContent(roundCount(88));
+			expect(firstRepositoryItem).toHaveTextContent(roundCount(3));
 
-			expect(repositoryItems).toBeDefined();
+			expect(secondRepositoryItem).toHaveTextContent(
+				"async-library/react-async"
+			);
+			expect(secondRepositoryItem).toHaveTextContent(
+				"Flexible promise-based React data loader"
+			);
+			expect(secondRepositoryItem).toHaveTextContent("JavaScript");
+			expect(secondRepositoryItem).toHaveTextContent(roundCount(69));
+			expect(secondRepositoryItem).toHaveTextContent(roundCount(1760));
+			expect(secondRepositoryItem).toHaveTextContent(roundCount(72));
+			expect(secondRepositoryItem).toHaveTextContent(roundCount(3));
 		});
 	});
 });

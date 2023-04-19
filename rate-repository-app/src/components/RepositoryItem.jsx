@@ -51,12 +51,18 @@ const styles = StyleSheet.create({
 	},
 });
 
+export const roundCount = (value) => {
+	return value >= 1000
+		? (Math.round((value / 1000) * 10) / 10).toString() + "k"
+		: value;
+};
+
 const BottomInfo = ({ flexStyle, title, value }) => {
 	return (
 		<View style={styles.flexVertical}>
-			<View style={flexStyle}>
+			<View testID={title} style={flexStyle}>
 				<Text style={{ ...styles.text, alignSelf: "center" }} fontWeight="bold">
-					{value >= 1000 ? Math.round((value / 1000) * 10) / 10 + "k" : value}
+					{roundCount(value)}
 				</Text>
 				<Text style={{ ...styles.text, alignSelf: "center" }}>{title}</Text>
 			</View>
