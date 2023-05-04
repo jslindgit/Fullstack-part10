@@ -51,6 +51,8 @@ export const themeStyles = {
 		backgroundColor: theme.colors.primary,
 		alignSelf: "flex-start",
 		padding: 5,
+		paddingLeft: 10,
+		paddingRight: 10,
 		borderRadius: 5,
 	},
 };
