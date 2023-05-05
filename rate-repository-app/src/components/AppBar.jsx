@@ -46,7 +46,6 @@ const AppBar = () => {
 			</View>
 		);
 	}
-	console.log("AppBar data:", data);
 
 	const signOut = async () => {
 		await authStorage.removeAccessToken();
