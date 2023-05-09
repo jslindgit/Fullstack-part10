@@ -9,7 +9,7 @@ import FormikTextInput from "./FormikTextInput";
 import { themeStyles } from "../theme";
 import Constants from "expo-constants";
 
-import useSignIn from "../hooks/useSignin";
+import useSignIn from "../hooks/useSignIn";
 
 const styles = StyleSheet.create({
 	container: {
