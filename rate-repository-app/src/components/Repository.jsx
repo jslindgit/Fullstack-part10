@@ -5,6 +5,8 @@ import RepositoryItem from "./RepositoryItem";
 import useRepository from "../hooks/useRepository";
 import styles from "../containerStyles";
 import { themeStyles } from "../theme";
+import theme from "../theme";
+import { format } from "date-fns";
 
 const separatorStyles = StyleSheet.create({
 	separator: {
@@ -21,16 +23,28 @@ const RepositoryInfo = ({ repository }) => {
 const ReviewItem = ({ review }) => {
 	return (
 		<View style={styles.container}>
-			<View style={themeStyles.tabBlue}>
-				<Text fontWeight="bold" style={styles.textTab}>
-					{review.rating}
-				</Text>
+			<View style={styles.flexHorizontal}>
+				<View style={themeStyles.tabBlue}>
+					<Text
+						fontWeight="bold"
+						style={{
+							...styles.textTab,
+							fontSize: theme.fontSizes.heading,
+						}}
+					>
+						{review.rating}
+					</Text>
+				</View>
+				<View style={{ paddingLeft: 15 }}>
+					<Text fontWeight="bold" style={styles.text}>
+						{review.user.username}
+					</Text>
+					<Text style={styles.text}>
+						{format(new Date(review.createdAt), "dd.MM.yyyy")}
+					</Text>
+					<Text>{review.text}</Text>
+				</View>
 			</View>
-			<Text fontWeight="bold" style={styles.text}>
-				{review.user.username}
-			</Text>
-			<Text style={styles.text}>{review.createdAt}</Text>
-			<Text>{review.text}</Text>
 		</View>
 	);
 };
@@ -57,7 +71,11 @@ const Repository = () => {
 			ItemSeparatorComponent={ItemSeparator}
 			renderItem={({ item }) => <ReviewItem review={item} />}
 			keyExtractor={({ id }) => id}
-			ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+			ListHeaderComponent={() => (
+				<>
+					<RepositoryInfo repository={repository} /> <ItemSeparator />
+				</>
+			)}
 		/>
 	);
 
