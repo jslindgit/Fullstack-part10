@@ -1,6 +1,7 @@
-import { Image, Pressable, View } from "react-native";
+import { Image, View } from "react-native";
 import * as Linking from "expo-linking";
 
+import Button from "./Button";
 import Text from "./Text";
 import { themeStyles } from "../theme";
 import styles from "../containerStyles";
@@ -27,15 +28,14 @@ const BottomInfo = ({ flexStyle, title, value }) => {
 const githubButton = (showButton, repository) => {
 	if (showButton && repository.url) {
 		return (
-			<Pressable
+			<Button
+				text="Open in GitHub"
+				style={themeStyles.buttonBlue}
+				stylePressed={themeStyles.buttonBluePressed}
 				onPress={() => {
 					Linking.openURL(repository.url, "_blank");
 				}}
-			>
-				<View style={themeStyles.buttonBlue}>
-					<Text style={styles.textGitHub}>Open in GitHub</Text>
-				</View>
-			</Pressable>
+			/>
 		);
 	}
 };

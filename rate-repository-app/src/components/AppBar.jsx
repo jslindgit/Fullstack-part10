@@ -52,6 +52,15 @@ const AppBar = () => {
 		apolloClient.resetStore();
 	};
 
+	const createReview =
+		data.me !== null ? (
+			<Link to="/review" style={styles.flexItem}>
+				<Text color="textLight">Create a review</Text>
+			</Link>
+		) : (
+			<></>
+		);
+
 	const signIn =
 		data.me !== null ? (
 			<Text color="textLight" onPress={signOut}>
@@ -69,6 +78,7 @@ const AppBar = () => {
 				<Link to="/" style={styles.flexItem}>
 					<Text color="textLight">Repositories</Text>
 				</Link>
+				{createReview}
 				{signIn}
 			</ScrollView>
 		</View>
