@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-native";
 
+import useReview from "../hooks/useReview";
 import Button from "./Button";
 import FormikTextInput from "./FormikTextInput";
 
@@ -88,16 +89,24 @@ export const ReviewContainer = ({ onSubmit }) => {
 };
 
 const Review = () => {
-	//const [signIn] = useSignIn();
+	const [createReview] = useReview();
 	const navigate = useNavigate();
 
 	const onSubmit = async (values) => {
 		const { repositoryowner, repositoryname, rating, review } = values;
 
 		try {
-			//const { data } = await signIn({ username, password });
-			console.log(repositoryowner, repositoryname, rating, review);
-			navigate("/");
+			const numRating = Number(rating);
+
+			const { data } = await createReview({
+				ownerName: repositoryowner,
+				rating: numRating,
+				repositoryName: repositoryname,
+				text: review,
+			});
+
+			const id = data.createReview.repositoryId;
+			navigate("/repository/" + id);
 		} catch (e) {
 			console.log("Review.jsx Review() error:", e);
 		}

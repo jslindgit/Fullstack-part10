@@ -13,7 +13,12 @@ const useReview = () => {
 		const token = await authStorage.getAccessToken();
 
 		const payload = await mutate({
-			variables: { ownerName, rating, repositoryName, text },
+			variables: {
+				ownerName: ownerName,
+				rating: rating,
+				repositoryName: repositoryName,
+				text: text,
+			},
 			headers: { Authorization: "Bearer " + token },
 		});
 

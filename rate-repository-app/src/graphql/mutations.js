@@ -23,7 +23,7 @@ export const CREATEREVIEW = gql`
 				text: $text
 			}
 		) {
-			id
+			repositoryId
 		}
 	}
 `;

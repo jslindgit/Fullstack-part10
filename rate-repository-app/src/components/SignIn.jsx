@@ -77,7 +77,7 @@ const SignIn = () => {
 
 		try {
 			const { data } = await signIn({ username, password });
-			console.log("data:", data);
+			console.log("SignIn.jsx data:", data);
 			navigate("/");
 		} catch (e) {
 			console.log("SignIn.jsx SignIn() error:", e);
