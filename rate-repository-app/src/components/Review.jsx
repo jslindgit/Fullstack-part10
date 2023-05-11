@@ -38,7 +38,12 @@ const ReviewForm = ({ onSubmit }) => {
 				<FormikTextInput name="rating" placeholder="Rating (0-100)" />
 			</View>
 			<View style={styles.inputContainer}>
-				<FormikTextInput name="review" placeholder="Review" />
+				<FormikTextInput
+					name="review"
+					placeholder="Review"
+					multiline="true"
+					numberOfLines="10"
+				/>
 			</View>
 			<Button
 				text="Create review"
@@ -54,7 +59,11 @@ export const ReviewContainer = ({ onSubmit }) => {
 	const validationSchema = yup.object().shape({
 		repositoryowner: yup.string().required("Repository owner is required"),
 		repositoryname: yup.string().required("Repository's name is required"),
-		rating: yup.string().required("Rating is required"),
+		rating: yup
+			.number()
+			.required("Rating is required")
+			.min(0, "Rating must be 0-100")
+			.max(100, "Rating must be 0-100"),
 		review: yup.string().optional(),
 	});
 
