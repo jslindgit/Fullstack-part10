@@ -67,9 +67,14 @@ const AppBar = () => {
 				Sign out ({data.me.username})
 			</Text>
 		) : (
-			<Link to="/signin" style={styles.flexItem}>
-				<Text color="textLight">Sign in</Text>
-			</Link>
+			<>
+				<Link to="/signin" style={styles.flexItem}>
+					<Text color="textLight">Sign in</Text>
+				</Link>
+				<Link to="/signup" style={styles.flexItem}>
+					<Text color="textLight">Sign up</Text>
+				</Link>
+			</>
 		);
 
 	return (
