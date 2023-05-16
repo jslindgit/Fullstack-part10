@@ -12,7 +12,13 @@ const TextInput = ({ style, error, ...props }) => {
 
 	const inputStyles = [textInputStyle, error && styles.error];
 
-	return <NativeTextInput style={inputStyles} {...props} />;
+	return (
+		<NativeTextInput
+			placeholderTextColor={"gray"}
+			style={inputStyles}
+			{...props}
+		/>
+	);
 };
 
 export default TextInput;

@@ -1,3 +1,4 @@
+import React from "react";
 import { FlatList, Pressable, View, StyleSheet } from "react-native";
 import { useNavigate } from "react-router-native";
 import { useState } from "react";
@@ -8,6 +9,7 @@ import { useDebounce } from "use-debounce";
 import TextInput from "./TextInput";
 import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
+import { themeStyles } from "../theme";
 
 const styles = StyleSheet.create({
 	separator: {
@@ -33,25 +35,83 @@ const searchInputOnChage = (newValue, setSearchKeyword) => {
 	setSearchKeyword(newValue);
 };
 
-export const RepositoryListContainer = ({ repositories }) => {
-	const navigate = useNavigate();
-
-	// Get the nodes from the edges array:
-	const repositoryNodes = repositories
-		? repositories.edges.map((edge) => edge.node)
-		: [];
-
+const Filter = ({ setSearchKeyword }) => {
 	return (
-		<FlatList
-			data={repositoryNodes}
-			ItemSeparatorComponent={ItemSeparator}
-			renderItem={({ item }) => renderRepositoryItem(item, navigate)}
-			keyExtractor={(item) => item.id}
-		/>
+		<View style={styles.inputContainer}>
+			<TextInput
+				onChangeText={(value) => searchInputOnChage(value, setSearchKeyword)}
+				style={themeStyles.input}
+				placeholder="Filter"
+			/>
+		</View>
 	);
 };
 
+const OrderBy = ({ orderBy, setOrderBy }) => {
+	return (
+		<Picker
+			selectedValue={orderBy}
+			onValueChange={(itemValue, itemIndex) => setOrderBy(itemValue)}
+			style={themeStyles.input}
+		>
+			<Picker.Item label="Latest repositories" value="CREATED_AT" />
+			<Picker.Item
+				label="Highest rated repositories"
+				value="RATING_AVERAGE_DESC"
+			/>
+			<Picker.Item
+				label="Lowest rated repositories"
+				value="RATING_AVERAGE_ASC"
+			/>
+		</Picker>
+	);
+};
+
+const RepositoryListHeader = ({ orderBy, setOrderBy, setSearchKeyword }) => {
+	return (
+		<>
+			<Filter setSearchKeyword={setSearchKeyword} />
+			<OrderBy orderBy={orderBy} setOrderBy={setOrderBy} />
+		</>
+	);
+};
+
+export class RepositoryListContainer extends React.Component {
+	renderHeader = () => {
+		const props = this.props;
+
+		return (
+			<RepositoryListHeader
+				orderBy={props.orderBy}
+				setOrderBy={props.setOrderBy}
+				setSearchKeyword={props.setSearchKeyword}
+			/>
+		);
+	};
+
+	render() {
+		const props = this.props;
+
+		// Get the nodes from the edges array:
+		const repositoryNodes = props.repositories
+			? props.repositories.edges.map((edge) => edge.node)
+			: [];
+
+		return (
+			<FlatList
+				data={repositoryNodes}
+				ItemSeparatorComponent={ItemSeparator}
+				renderItem={({ item }) => renderRepositoryItem(item, props.navigate)}
+				keyExtractor={(item) => item.id}
+				ListHeaderComponent={this.renderHeader}
+			/>
+		);
+	}
+}
+
 const RepositoryList = () => {
+	const navigate = useNavigate();
+
 	const [orderBy, setOrderBy] = useState("CREATED_AT");
 	const [searchKeyword, setSearchKeyword] = useState("");
 	const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
@@ -59,29 +119,13 @@ const RepositoryList = () => {
 	const { repositories } = useRepositories(orderBy, debouncedSearchKeyword);
 
 	return (
-		<>
-			<View style={styles.inputContainer}>
-				<TextInput
-					onChangeText={(value) => searchInputOnChage(value, setSearchKeyword)}
-				/>
-			</View>
-			<Picker
-				selectedValue={orderBy}
-				onValueChange={(itemValue, itemIndex) => setOrderBy(itemValue)}
-			>
-				<Picker.Item label="Latest repositories" value="CREATED_AT" />
-				<Picker.Item
-					label="Highest rated repositories"
-					value="RATING_AVERAGE_DESC"
-				/>
-				<Picker.Item
-					label="Lowest rated repositories"
-					value="RATING_AVERAGE_ASC"
-				/>
-			</Picker>
-
-			<RepositoryListContainer repositories={repositories} />
-		</>
+		<RepositoryListContainer
+			repositories={repositories}
+			navigate={navigate}
+			orderBy={orderBy}
+			setOrderBy={setOrderBy}
+			setSearchKeyword={setSearchKeyword}
+		/>
 	);
 };
 

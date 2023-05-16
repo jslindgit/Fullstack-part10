@@ -46,6 +46,15 @@ export const themeStyles = {
 		...buttonBase,
 		backgroundColor: theme.colors.primaryDark,
 	},
+	input: {
+		backgroundColor: "#fff",
+		color: theme.colors.textPrimary,
+		padding: 10,
+		borderColor: theme.colors.grayMid,
+		borderRadius: 5,
+		borderStyle: "solid",
+		borderWidth: 1,
+	},
 	tabBlue: {
 		color: "#fff",
 		backgroundColor: theme.colors.primary,
