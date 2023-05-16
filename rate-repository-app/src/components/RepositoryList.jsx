@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-native";
 import { useState } from "react";
 
 import { Picker } from "@react-native-picker/picker";
+import { useDebounce } from "use-debounce";
 
+import TextInput from "./TextInput";
 import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
 
@@ -27,6 +29,10 @@ const renderRepositoryItem = (item, navigate) => {
 	);
 };
 
+const searchInputOnChage = (newValue, setSearchKeyword) => {
+	setSearchKeyword(newValue);
+};
+
 export const RepositoryListContainer = ({ repositories }) => {
 	const navigate = useNavigate();
 
@@ -47,11 +53,18 @@ export const RepositoryListContainer = ({ repositories }) => {
 
 const RepositoryList = () => {
 	const [orderBy, setOrderBy] = useState("CREATED_AT");
+	const [searchKeyword, setSearchKeyword] = useState("");
+	const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
 
-	const { repositories } = useRepositories(orderBy);
+	const { repositories } = useRepositories(orderBy, debouncedSearchKeyword);
 
 	return (
 		<>
+			<View style={styles.inputContainer}>
+				<TextInput
+					onChangeText={(value) => searchInputOnChage(value, setSearchKeyword)}
+				/>
+			</View>
 			<Picker
 				selectedValue={orderBy}
 				onValueChange={(itemValue, itemIndex) => setOrderBy(itemValue)}
