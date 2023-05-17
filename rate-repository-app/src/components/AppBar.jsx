@@ -61,6 +61,15 @@ const AppBar = () => {
 			<></>
 		);
 
+	const myReviews =
+		data.me !== null ? (
+			<Link to="/myreviews" style={styles.flexItem}>
+				<Text color="textLight">My reviews</Text>
+			</Link>
+		) : (
+			<></>
+		);
+
 	const signIn =
 		data.me !== null ? (
 			<Text color="textLight" onPress={signOut}>
@@ -84,6 +93,7 @@ const AppBar = () => {
 					<Text color="textLight">Repositories</Text>
 				</Link>
 				{createReview}
+				{myReviews}
 				{signIn}
 			</ScrollView>
 		</View>

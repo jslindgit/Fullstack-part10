@@ -5,6 +5,7 @@ import AppBar from "./AppBar";
 import Repository from "./Repository";
 import RepositoryList from "./RepositoryList";
 import Review from "./Review";
+import MyReviews from "./MyReviews";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
@@ -25,6 +26,7 @@ const Main = () => {
 			<Routes>
 				<Route path="/" element={<RepositoryList />} exact />
 				<Route path="/review" element={<Review />} exact />
+				<Route path="/myreviews" element={<MyReviews />} exact />
 				<Route path="/signin" element={<SignIn />} exact />
 				<Route path="/signup" element={<SignUp />} exact />
 				<Route path="/repository/:id" element={<Repository />} exact />
