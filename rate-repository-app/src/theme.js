@@ -7,6 +7,7 @@ const theme = {
 		primary: "#0366d6",
 		primaryDark: "#004a9e",
 		red: "#e70000",
+		redDark: "#96000",
 		textLight: "#fff",
 		textPrimary: "#24292e",
 		textSecondary: "#586069",
@@ -35,6 +36,7 @@ const buttonBase = {
 	borderRadius: 5,
 	textAlign: "center",
 	fontSize: theme.fontSizes.subheading,
+	fontWeight: "bold",
 };
 
 export const themeStyles = {
@@ -45,6 +47,14 @@ export const themeStyles = {
 	buttonBluePressed: {
 		...buttonBase,
 		backgroundColor: theme.colors.primaryDark,
+	},
+	buttonRed: {
+		...buttonBase,
+		backgroundColor: theme.colors.red,
+	},
+	buttonRedPressed: {
+		...buttonBase,
+		backgroundColor: theme.colors.redDark,
 	},
 	input: {
 		backgroundColor: "#fff",

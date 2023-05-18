@@ -31,15 +31,13 @@ const MyReviews = () => {
 		);
 	}
 
-	console.log("data:", data);
-
 	const reviews = data.me.reviews.edges.map((r) => r.node);
 
 	return (
 		<FlatList
 			data={reviews}
 			ItemSeparatorComponent={ItemSeparator}
-			renderItem={({ item }) => <ReviewItem review={item} />}
+			renderItem={({ item }) => <ReviewItem review={item} isMyReview={true} />}
 			keyExtractor={({ id }) => id}
 		/>
 	);

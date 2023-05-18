@@ -15,7 +15,12 @@ const separatorStyles = StyleSheet.create({
 const ItemSeparator = () => <View style={separatorStyles.separator} />;
 
 const RepositoryInfo = ({ repository }) => {
-	return <RepositoryItem repository={repository} showButton={true} />;
+	return (
+		<View>
+			<RepositoryItem repository={repository} showButton={true} />
+			<ItemSeparator />
+		</View>
+	);
 };
 
 const Repository = () => {
@@ -40,11 +45,7 @@ const Repository = () => {
 			ItemSeparatorComponent={ItemSeparator}
 			renderItem={({ item }) => <ReviewItem review={item} />}
 			keyExtractor={({ id }) => id}
-			ListHeaderComponent={() => (
-				<>
-					<RepositoryInfo repository={repository} /> <ItemSeparator />
-				</>
-			)}
+			ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
 		/>
 	);
 

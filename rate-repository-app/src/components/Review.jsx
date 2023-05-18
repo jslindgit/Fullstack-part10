@@ -42,8 +42,8 @@ const ReviewForm = ({ onSubmit }) => {
 				<FormikTextInput
 					name="review"
 					placeholder="Review"
-					multiline="true"
-					numberOfLines="10"
+					multiline={true}
+					numberOfLines={10}
 				/>
 			</View>
 			<Button

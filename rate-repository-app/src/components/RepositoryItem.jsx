@@ -37,7 +37,7 @@ const githubButton = (showButton, repository) => {
 				}}
 			/>
 		);
-	}
+	} else return <></>;
 };
 
 const RepositoryItem = ({ repository, showButton = false }) => {
