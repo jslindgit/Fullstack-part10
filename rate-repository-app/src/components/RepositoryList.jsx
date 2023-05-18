@@ -51,7 +51,7 @@ const OrderBy = ({ orderBy, setOrderBy }) => {
 	return (
 		<Picker
 			selectedValue={orderBy}
-			onValueChange={(itemValue, itemIndex) => setOrderBy(itemValue)}
+			onValueChange={(itemValue) => setOrderBy(itemValue)}
 			style={themeStyles.input}
 		>
 			<Picker.Item label="Latest repositories" value="CREATED_AT" />
@@ -104,6 +104,8 @@ export class RepositoryListContainer extends React.Component {
 				renderItem={({ item }) => renderRepositoryItem(item, props.navigate)}
 				keyExtractor={(item) => item.id}
 				ListHeaderComponent={this.renderHeader}
+				onEndReached={props.onEndReached}
+				onEndReachedThreshold={0.5}
 			/>
 		);
 	}
@@ -116,7 +118,15 @@ const RepositoryList = () => {
 	const [searchKeyword, setSearchKeyword] = useState("");
 	const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
 
-	const { repositories } = useRepositories(orderBy, debouncedSearchKeyword);
+	const { repositories, fetchMore } = useRepositories(
+		orderBy,
+		debouncedSearchKeyword,
+		8
+	);
+
+	const onEndReached = () => {
+		fetchMore();
+	};
 
 	return (
 		<RepositoryListContainer
@@ -125,6 +135,7 @@ const RepositoryList = () => {
 			orderBy={orderBy}
 			setOrderBy={setOrderBy}
 			setSearchKeyword={setSearchKeyword}
+			onEndReached={onEndReached}
 		/>
 	);
 };
